@@ -1,5 +1,16 @@
 [
     {
+        "Titulo": "X",
+        "Ano": "2011",
+        "Diretor": "Jon Hewitt",
+        "Atores principais": "Viva Bianca, Hanna Mangan Lawrence, Peter Docker, Stephen Phillips",
+        "Tempo de tela": "90 min",
+        "Genero": "Crime, Drama, Thriller",
+        "Pais": "Australia",
+        "Lingua Original": "English",
+        "Status de visualizacao": "A definir"
+    },
+    {
         "Titulo": "Up",
         "Ano": "2009",
         "Diretor": "Pete Docter, Bob Peterson(co-director)",
@@ -8,17 +19,17 @@
         "Genero": "Animation, Adventure, Comedy, Family",
         "Pais": "USA",
         "Lingua Original": "English",
-        "Status de visualizacao": "Assistido"
+        "Status de visualizacao": "A definir"
     },
     {
-        "Titulo": "Mia Khalifa",
-        "Ano": "2015",
-        "Diretor": "N/A",
-        "Atores principais": "Karlo Karrera, Mia Khalifa",
-        "Tempo de tela": "102 min",
-        "Genero": "Adult",
+        "Titulo": "Iron Man",
+        "Ano": "2008",
+        "Diretor": "Jon Favreau",
+        "Atores principais": "Robert Downey Jr., Terrence Howard, Jeff Bridges, Gwyneth Paltrow",
+        "Tempo de tela": "126 min",
+        "Genero": "Action, Adventure, Sci-Fi",
         "Pais": "USA",
-        "Lingua Original": "English",
-        "Status de visualizacao": "Assistido"
+        "Lingua Original": "Hungarian, Kurdish, Hindi, English, Persian, Urdu, Arabic",
+        "Status de visualizacao": "A definir"
     }
 ]
