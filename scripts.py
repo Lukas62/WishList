@@ -1,8 +1,8 @@
-import requests, json, time
+import requests, json, time, os
 from time import sleep
 
 def menu():
-  
+
     print('\n****** Bem vindo(a) a sua lista de desejos! ******')
     print('*** Adicionar filme a lista de desejos: [1] ***')
     print('*** Deletar filme da lista de desejos: [2] ***')
@@ -14,75 +14,101 @@ def menu():
 
 def status():
 
-    flag_status = True
-
-    title = str(input('\nDigite o nome do filme que deseja alterar o status de visualização: ')).title().strip()
+    flag_status = False
         
     try:    
+        
+        with open('lista_de_desejos.json') as arquivo:
+            reference = json.load(arquivo)
+            
+            if len(reference) != 0:
+                
+                print('\nEsses são os filmes que você possui na sua lista de desejos.\n')
+
+                for filme_na_lista in reference:
+            
+                    print(f'\nO título do filme é: {filme_na_lista["Titulo"]}')
+                    print(f'O ano do filme é: {filme_na_lista["Ano"]}')
+                    print(f'O diretor do filme é: {filme_na_lista["Diretor"]}')
+                    print(f'Os atores principais são: {filme_na_lista["Atores Principais"]}')
+                    print(f'O tempo de duração do filme é: {filme_na_lista["Tempo De Tela"]}')
+                    print(f'O(s) gênero(s) do filme é(são): {filme_na_lista["Genero"]}')
+                    print(f'O país de origem do filme é: {filme_na_lista["Nacionalidade"]}')
+                    print(f'A lingua original do filme é: {filme_na_lista["Lingua Original"]}')
+                    print(f'Status De Visualização: {filme_na_lista["Status De Visualizacao"]}')
+            
+        title_status = str(input('\nDigite o nome do filme que deseja alterar o status de visualização: ')).lower().strip()
         
         with open('lista_de_desejos.json') as arquivo:
             
             reference = json.load(arquivo)
 
-            for item in reference:
+            for filme_na_lista in reference:
                 
-                if title == item['Titulo']:
+                if title_status == filme_na_lista['Titulo']:
+                    
+                    flag_status = True  
+            
+            if flag_status:     
+                print('\nOpções De Status De Visualização: ')
+                print('\nAssistido [1]')
+                print('Não assistido [2]')
+                print('Assistir mais tarde [3]\n')
+                    
+                escolha_de_status = input('Digite o número da escolha de status desejada: ')
+
+                if escolha_de_status == '1':
+
+                    filme_na_lista['Status De Visualizacao'] = 'Assistido'
+
+                    with open('lista_de_desejos.json', 'w') as arquivo:    
+                        json.dump(reference, arquivo, indent=4)
+                        print('\nStatus atualizado!')
+                        voltando_ao_menu()
+
+                elif escolha_de_status == '2':
+
+                    filme_na_lista['Status De Visualizacao'] = 'Nao assistido'
                         
-                    print('\nOpções de status de visualização: ')
-                    print('\nAssistido [1]')
-                    print('Não assistido [2]')
-                    print('Assistir mais tarde [3]\n')
+                    with open('lista_de_desejos.json', 'w') as arquivo:    
+                        json.dump(reference, arquivo, indent=4)
+                        print('\nStatus atualizado!')
+                        voltando_ao_menu()
+
+                elif escolha_de_status == '3':
+
+                    filme_na_lista['Status De Visualizacao'] = 'Assistir mais tarde' 
                         
-                    escolha_de_status = input('Digite o número da escolha de status desejada: ')
-
-                    if escolha_de_status == '1':
-
-                        item['Status de visualizacao'] = 'Assistido'
-
-                        with open('lista_de_desejos.json', 'w') as arquivo:    
-                            json.dump(reference, arquivo, indent=4)
-                            print('\nStatus atualizado!')
-                            voltando_ao_menu()
-
-                    elif escolha_de_status == '2':
-
-                        item['Status de visualizacao'] = 'Nao assistido'
-                            
-                        with open('lista_de_desejos.json', 'w') as arquivo:    
-                            json.dump(reference, arquivo, indent=4)
-                            print('\nStatus atualizado!')
-                            voltando_ao_menu()
-
-                    elif escolha_de_status == '3':
-
-                        item['Status de visualizacao'] = 'Assistir mais tarde' 
-                            
-                        with open('lista_de_desejos.json', 'w') as arquivo:    
-                            json.dump(reference, arquivo, indent=4)
-                            print('\nStatus atualizado!')
-                            voltando_ao_menu()
+                    with open('lista_de_desejos.json', 'w') as arquivo:    
+                        json.dump(reference, arquivo, indent=4)
+                        print('\nStatus atualizado!')
+                        voltando_ao_menu()
 
                         
-                    else:
+                else:
                         
                         print('\nOpção inválida.')
                         voltando_ao_menu()
-                else:
-                        
-                    flag_status = False               
+                
+            else:
+                pass               
             
-                if flag_status == False:
+            if flag_status == False:
                     
-                    print('\nVocê não possui esse filme na sua lista')
-                    voltando_ao_menu()
+                print('\nVocê não possui esse filme na sua lista')
+                voltando_ao_menu()
 
-                else:
-                    pass    
+            else:
+                pass    
 
     except FileNotFoundError:
         
         print('\nVocê ainda não possui uma lista de desejos. ):')  
         voltando_ao_menu()    
+
+    except KeyError:
+
+        print('Esse não é um filme válido.')
 
 def voltando_ao_menu():  
     
@@ -106,8 +132,19 @@ def visualizar_lista_de_desejos():
 
                     print(f'\nVocê possui {len(reference_tres)} filme(s) na sua lista de desejos.')
                     print('\nO(s) filme(s) na sua lista é(são):')
-                    print(json.dumps(reference_tres, indent=4, separators = (". ", " = ")))
-            
+                    
+                    for filme_na_lista in reference_tres:
+
+                        print(f'\nO título do filme é: {filme_na_lista["Titulo"]}')
+                        print(f'O ano do filme é: {filme_na_lista["Ano"]}')
+                        print(f'O diretor do filme é: {filme_na_lista["Diretor"]}')
+                        print(f'Os atores principais são: {filme_na_lista["Atores Principais"]}')
+                        print(f'O tempo de duração do filme é: {filme_na_lista["Tempo De Tela"]}')
+                        print(f'O(s) gênero(s) do filme é(são): {filme_na_lista["Genero"]}')
+                        print(f'O país de origem do filme é: {filme_na_lista["Nacionalidade"]}')
+                        print(f'A lingua original do filme é: {filme_na_lista["Lingua Original"]}')
+                        print(f'Status De Visualização: {filme_na_lista["Status De Visualizacao"]}')
+                            
             else:
                 pass
 
@@ -120,7 +157,7 @@ def visualizar_lista_de_desejos():
         
 def buscar_filme():
 
-    filme_desejado = str(input('\nDigite o nome do filme que deseja buscar na sua lista de desejos: ')).title().strip()
+    filme_desejado = str(input('\nDigite o nome do filme que deseja buscar na sua lista de desejos: ')).strip()
         
     flag_quatro = True
         
@@ -133,7 +170,17 @@ def buscar_filme():
             if filme_desejado == filme_na_lista['Titulo']:
                 
                 flag_quatro = False
-                print(json.dumps(filme_na_lista, indent=4, separators = (". ", " = ")))
+
+                print(f'\nO título do filme é: {filme_na_lista["Titulo"]}')
+                print(f'O ano do filme é: {filme_na_lista["Ano"]}')
+                print(f'O diretor do filme é: {filme_na_lista["Diretor"]}')
+                print(f'Os atores principais são: {filme_na_lista["Atores Principais"]}')
+                print(f'O tempo de duração do filme é: {filme_na_lista["Tempo De Tela"]}')
+                print(f'O(s) gênero(s) do filme é(são): {filme_na_lista["Genero"]}')
+                print(f'O país de origem do filme é: {filme_na_lista["Nacionalidade"]}')
+                print(f'A lingua original do filme é: {filme_na_lista["Lingua Original"]}')
+                print(f'Status De Visualização: {filme_na_lista["Status De Visualizacao"]}')
+
                 voltando_ao_menu()
 
             else:
@@ -152,3 +199,167 @@ def buscar_filme():
             
         print('\nNenhuma lista de desejos encontrada. ):')
         voltando_ao_menu()     
+
+def adicionar_filme():
+
+    lista_de_filmes = []
+   
+    try:
+             
+        title = input(str('\nDigite o nome do filme que deseja buscar: '))
+        
+        filme_na_lista = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&t={}'.format(title)).json()# Fazendo a chamada da API com base no título do filme
+
+        print(f'\nO título do filme é: {filme_na_lista["Title"]}')
+        print(f'O ano do filme é: {filme_na_lista["Year"]}')
+        print(f'O diretor do filme é: {filme_na_lista["Director"]}')
+        print(f'Os atores principais são: {filme_na_lista["Actors"]}')
+        print(f'O tempo de duração do filme é: {filme_na_lista["Runtime"]}')
+        print(f'O(s) gênero(s) do filme é(são): {filme_na_lista["Genre"]}')
+        print(f'O país de origem do filme é: {filme_na_lista["Country"]}')
+        print(f'A lingua original do filme é: {filme_na_lista["Language"]}')
+
+        esc1 = str(input('\nDeseja adicionar este filme a sua lista de desejos [S/N]: ')).upper().strip()# Retornando a str maiúscula sem espaços no começo e no final    
+
+        if esc1 == 'S':
+
+            filme = { # Salvando em um dicionário as informações que me interessam do filme, obtidas através da API 
+                "Titulo": filme_na_lista['Title'].lower(),
+                "Ano": filme_na_lista['Year'],
+                "Diretor": filme_na_lista['Director'],
+                "Atores Principais": filme_na_lista['Actors'],
+                "Tempo De Tela": filme_na_lista['Runtime'],
+                "Genero": filme_na_lista['Genre'],
+                "Nacionalidade": filme_na_lista['Country'],
+                "Lingua Original": filme_na_lista['Language'],
+                "Status De Visualizacao": 'A definir'            
+                    }
+            
+            try:
+              
+                with open('lista_de_desejos.json') as arquivo: #Abrindo e carregando o arquivo de filmes para uma variável refêrencia
+                    reference = []
+                    reference = json.load(arquivo)
+
+                flag_dois = True
+
+                for movie in reference:
+                    
+                    if filme["Titulo"] == movie['Titulo']:
+                        
+                        print('\nEsse filme já existe na sua lista!')
+                        voltando_ao_menu()
+                        flag_dois = False
+                
+                    else:
+                        pass
+                        
+                if flag_dois == True:
+
+                    reference.append(filme) #Apendando no meu arquivo de filmes o novo filme
+                        
+                    with open('lista_de_desejos.json', 'w') as arquivo: #Abrindo meu arquivo de filmes como escrita
+                        
+                        json.dump(reference, arquivo, indent=4) # Salvando as alterações feitas ao adicionar o novo filme
+                        print('\nFilme adicionado com sucesso!') 
+
+                    voltando_ao_menu()
+                
+                else:
+                    pass        
+
+            except FileNotFoundError: #Caso não encontre o arquivo .json cria e adiciona o filme escolhido
+                    
+                lista_de_filmes.append(filme)
+                    
+                print('\nNenhuma lista de desejos encontrada.... Criando lista de desejos e adicionando filme....')
+                    
+                with open('lista_de_desejos.json', 'w') as arquivo:
+                    json.dump(lista_de_filmes, arquivo, indent=4)
+                    
+                sleep(2)
+                    
+                print('\nLista criada e filme adicionado!')
+                voltando_ao_menu()
+
+        elif esc1 == 'N':
+
+            voltando_ao_menu()
+        
+        else:
+            print('\nOpção inválida.')
+            voltando_ao_menu()
+
+    except KeyError:
+
+        print('\nNome do filme inválido')
+        voltando_ao_menu()        
+
+def deletar_filme():
+
+    try:
+        
+        with open('lista_de_desejos.json') as arquivo:
+            reference = json.load(arquivo)
+            
+            if len(reference) != 0:
+                
+                print('\nEsses são os filmes que você possui na sua lista de desejos.')
+                
+                for filme_na_lista in reference:
+                    
+                    print(f'\nO título do filme é: {filme_na_lista["Titulo"]}')
+                    print(f'O ano do filme é: {filme_na_lista["Ano"]}')
+                    print(f'O diretor do filme é: {filme_na_lista["Diretor"]}')
+                    print(f'Os atores principais são: {filme_na_lista["Atores Principais"]}')
+                    print(f'O tempo de duração do filme é: {filme_na_lista["Tempo De Tela"]}')
+                    print(f'O(s) gênero(s) do filme é(são): {filme_na_lista["Genero"]}')
+                    print(f'O país de origem do filme é: {filme_na_lista["Nacionalidade"]}')
+                    print(f'A lingua original do filme é: {filme_na_lista["Lingua Original"]}')
+                    print(f'Status De Visualização: {filme_na_lista["Status De Visualizacao"]}')
+
+        title_dois = str(input('\nDigite o nome do filme que deseja deletar na sua lista de desejos: ')).lower().strip()
+            
+        with open('lista_de_desejos.json') as arquivo_dois: #Abrindo e carregando o arquivo de filmes para uma variável refêrencia
+            reference_dois = json.load(arquivo_dois) 
+
+        flag_tres = True
+                
+        for movie2 in reference_dois:
+                
+            if title_dois == movie2["Titulo"]:# Fazendo a comparação entre o filme que foi digitado e os filmes já salvos na lista de desenjos
+                            
+                flag_tres = False
+
+            else:
+                pass       
+                
+        if flag_tres == False:
+                    
+            lista = []
+
+            for filme_delete in reference_dois:
+
+                if title_dois != filme_delete["Titulo"]:
+                            
+                    lista.append(filme_delete)
+
+
+            with open('lista_de_desejos.json', 'w') as arquivo_dois:
+                json.dump(lista, arquivo_dois, indent=4)
+                    
+
+            print('\nFilme apagado da lista de desejos com sucesso!')
+            voltando_ao_menu()
+                
+        elif flag_tres:
+            print('\nEsse filme não existe na sua lista de desejos!')
+            voltando_ao_menu()
+        
+    except FileNotFoundError:
+        print('\nLista de desejos não existe.')  
+        voltando_ao_menu()
+    
+    except KeyError:
+        print('\nNão é um filme válido.')
+        voltando_ao_menu()    

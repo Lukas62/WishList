@@ -1,35 +1,24 @@
 [
     {
-        "Titulo": "X",
-        "Ano": "2011",
-        "Diretor": "Jon Hewitt",
-        "Atores principais": "Viva Bianca, Hanna Mangan Lawrence, Peter Docker, Stephen Phillips",
-        "Tempo de tela": "90 min",
-        "Genero": "Crime, Drama, Thriller",
-        "Pais": "Australia",
+        "Titulo": "matrix",
+        "Ano": "1993\u2013",
+        "Diretor": "N/A",
+        "Atores Principais": "Nick Mancuso, Phillip Jarrett, Carrie-Anne Moss, John Vernon",
+        "Tempo De Tela": "60 min",
+        "Genero": "Action, Drama, Fantasy, Thriller",
+        "Nacionalidade": "Canada",
         "Lingua Original": "English",
-        "Status de visualizacao": "A definir"
+        "Status De Visualizacao": "Assistido"
     },
     {
-        "Titulo": "Up",
-        "Ano": "2009",
-        "Diretor": "Pete Docter, Bob Peterson(co-director)",
-        "Atores principais": "Edward Asner, Christopher Plummer, Jordan Nagai, Bob Peterson",
-        "Tempo de tela": "96 min",
-        "Genero": "Animation, Adventure, Comedy, Family",
-        "Pais": "USA",
-        "Lingua Original": "English",
-        "Status de visualizacao": "A definir"
-    },
-    {
-        "Titulo": "Iron Man",
+        "Titulo": "batman: the dark knight",
         "Ano": "2008",
-        "Diretor": "Jon Favreau",
-        "Atores principais": "Robert Downey Jr., Terrence Howard, Jeff Bridges, Gwyneth Paltrow",
-        "Tempo de tela": "126 min",
-        "Genero": "Action, Adventure, Sci-Fi",
-        "Pais": "USA",
-        "Lingua Original": "Hungarian, Kurdish, Hindi, English, Persian, Urdu, Arabic",
-        "Status de visualizacao": "A definir"
+        "Diretor": "Clint Walker",
+        "Atores Principais": "Daniel Gidlow",
+        "Tempo De Tela": "N/A",
+        "Genero": "Short, Action, Adventure, Sci-Fi",
+        "Nacionalidade": "UK",
+        "Lingua Original": "English",
+        "Status De Visualizacao": "A definir"
     }
 ]
