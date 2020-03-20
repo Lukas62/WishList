@@ -42,5 +42,27 @@
         "Nacionalidade": "USA, UK",
         "Lingua Original": "English, French, Spanish",
         "Status De Visualizacao": "A definir"
+    },
+    {
+        "Titulo": "iron man",
+        "Ano": "2008",
+        "Diretor": "Jon Favreau",
+        "Atores Principais": "Robert Downey Jr., Terrence Howard, Jeff Bridges, Gwyneth Paltrow",
+        "Tempo De Tela": "126 min",
+        "Genero": "Action, Adventure, Sci-Fi",
+        "Nacionalidade": "USA",
+        "Lingua Original": "Hungarian, Kurdish, Hindi, English, Persian, Urdu, Arabic",
+        "Status De Visualizacao": "A definir"
+    },
+    {
+        "Titulo": "matrix",
+        "Ano": "1993\u2013",
+        "Diretor": "N/A",
+        "Atores Principais": "Nick Mancuso, Phillip Jarrett, Carrie-Anne Moss, John Vernon",
+        "Tempo De Tela": "60 min",
+        "Genero": "Action, Drama, Fantasy, Thriller",
+        "Nacionalidade": "Canada",
+        "Lingua Original": "English",
+        "Status De Visualizacao": "A definir"
     }
 ]

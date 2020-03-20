@@ -36,8 +36,8 @@ while flag_menu:
 
     elif escolha == '7':
 
-        
-    
+        scripts.sugestoes_com_base_em_todos_os_filmes_adicionados()
+
     elif escolha == '8':
 
         print('\nAté um outro dia...... Um triste amanhã...... :)\n')

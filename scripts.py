@@ -10,7 +10,7 @@ def menu():
     print('*** Buscar filme na lista de desejos: [4] ***')
     print('*** Atualizar status de filme da lista de desejos: [5] ***')
     print('*** Sugestões com base no último filme adicionado: [6] ***')
-    print('*** Sugestões com base no último filme adicionado: [7] ***')
+    print('*** Sugestões com base em todos os filmes adicionados: [7] ***')
     print('*** Sair da lista de desejos: [8] ***')
     print('***********************************************\n')
 
@@ -402,6 +402,8 @@ def sugestoes_com_base_no_ultimo_filme_adicionado():
 
             if len(reference) != 0:
 
+                print("\nVocê pode adicionar as sugestões a sua lista de desejos em 'adicionar filme fornecendo o título e o ano do filme', \napós escolher adicionar filme a lista de desejos no menu.")
+                
                 for filme in reference:
 
                     if filme == reference[len(reference) - 1]:
@@ -413,12 +415,28 @@ def sugestoes_com_base_no_ultimo_filme_adicionado():
                         if 'Error' not in consulta and 'False' not in consulta:    
                             
                             print('\nTemos algumas sugestões com base no seu último filme adicionado!\n ')
-                            print(json.dumps(consulta["Search"], indent=4))
-                            voltando_ao_menu()
+                            sugestoes = consulta["Search"]
+
+                            cont = 1
+
+                            for filme in sugestoes:
+
+                                if filme["Type"] == "movie":
+                            
+                                    print(f'Sugestão {cont}:')
+                                    print(f'\nO título do filme é: {filme["Title"]}')
+                                    print(f'O ano do filme é: {filme["Year"]}\n')
+                            
+                                    cont += 1
+
+                            else:
+                                pass
+                            
+                            voltando_ao_menu()        
 
                         else:
                             print('\n"Desculpe, não foi possível sugerir mídias com base no seu último filme adicionado a lista de desejos,'
-                             ' adicione um novo filme e tente novamente!')
+                             ' adicione um novo filme e tente novamente! ):')
                             voltando_ao_menu()
                     else:
                         pass
@@ -438,18 +456,49 @@ def sugestoes_com_base_em_todos_os_filmes_adicionados():
 
         with open ('lista_de_desejos.json') as arquivo:
             
-            reference = arquivo
+            reference = json.load(arquivo)
 
             if len(reference) != 0:
+
+                cont = 1
+
+                print("\nVocê pode adicionar as sugestões a sua lista de desejos em 'adicionar filme fornecendo o título e o ano do filme', \napós escolher adicionar filme a lista de desejos no menu.\n")
+                print('Temos algumas sugestões com base no seu último filme adicionado!\n ')
 
                 for filme in reference:
 
                     nome = filme["Titulo"]
 
                     consulta = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&s={}'.format(nome)).json()
+                   
+                    if 'Error' not in consulta and 'False' not in consulta:    
+                        
+                        sugestoes = consulta["Search"]
+                        
+                        for filme in sugestoes:
 
-                     if 'Error' not in consulta and 'False' not in consulta:    
+                            if filme["Type"] == "movie":
                             
-                            print('\nTemos algumas sugestões com base nos filmes adicionados a lista de desejos !\n ')
-                            print(json.dumps(consulta["Search"], indent=4))
-                            voltando_ao_menu()
+                                print(f'Sugestão {cont}:')
+                                print(f'\nO título do filme é: {filme["Title"]}')
+                                print(f'O ano do filme é: {filme["Year"]}\n')
+                            
+                                cont += 1
+
+                            else:
+                                pass               
+                    
+                    else: 
+                        pass    
+
+            else:
+                print('Você não possui nenhum filme na sua lista!')
+                voltando_ao_menu()            
+        
+        voltando_ao_menu()
+
+    except FileNotFoundError:
+        print('Você não possui uma lista!')
+        voltando_ao_menu()   
+
+    #print('\nTemos algumas sugestões de filmes com base nos seus filmes adicionados a lista de desejos!\n')                         
