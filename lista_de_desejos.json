@@ -1,16 +1,5 @@
 [
     {
-        "Titulo": "matrix",
-        "Ano": "1993\u2013",
-        "Diretor": "N/A",
-        "Atores Principais": "Nick Mancuso, Phillip Jarrett, Carrie-Anne Moss, John Vernon",
-        "Tempo De Tela": "60 min",
-        "Genero": "Action, Drama, Fantasy, Thriller",
-        "Nacionalidade": "Canada",
-        "Lingua Original": "English",
-        "Status De Visualizacao": "Assistido"
-    },
-    {
         "Titulo": "batman: the dark knight",
         "Ano": "2008",
         "Diretor": "Clint Walker",
@@ -19,6 +8,39 @@
         "Genero": "Short, Action, Adventure, Sci-Fi",
         "Nacionalidade": "UK",
         "Lingua Original": "English",
+        "Status De Visualizacao": "A definir"
+    },
+    {
+        "Titulo": "up",
+        "Ano": "2009",
+        "Diretor": "Pete Docter, Bob Peterson(co-director)",
+        "Atores Principais": "Edward Asner, Christopher Plummer, Jordan Nagai, Bob Peterson",
+        "Tempo De Tela": "96 min",
+        "Genero": "Animation, Adventure, Comedy, Family",
+        "Nacionalidade": "USA",
+        "Lingua Original": "English",
+        "Status De Visualizacao": "A definir"
+    },
+    {
+        "Titulo": "1",
+        "Ano": "2013",
+        "Diretor": "Paul Crowder",
+        "Atores Principais": "Michael Fassbender, Lewis Hamilton, Niki Lauda, Michael Schumacher",
+        "Tempo De Tela": "112 min",
+        "Genero": "Documentary, History, Sport",
+        "Nacionalidade": "USA",
+        "Lingua Original": "English",
+        "Status De Visualizacao": "A definir"
+    },
+    {
+        "Titulo": "batman",
+        "Ano": "1989",
+        "Diretor": "Tim Burton",
+        "Atores Principais": "Michael Keaton, Jack Nicholson, Kim Basinger, Robert Wuhl",
+        "Tempo De Tela": "126 min",
+        "Genero": "Action, Adventure",
+        "Nacionalidade": "USA, UK",
+        "Lingua Original": "English, French, Spanish",
         "Status De Visualizacao": "A definir"
     }
 ]

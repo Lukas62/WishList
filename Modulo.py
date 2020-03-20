@@ -32,8 +32,16 @@ while flag_menu:
 
     elif escolha == '6':
         
+        scripts.sugestoes_com_base_no_ultimo_filme_adicionado()   
+
+    elif escolha == '7':
+
+        
+    
+    elif escolha == '8':
+
         print('\nAté um outro dia...... Um triste amanhã...... :)\n')
-        flag_menu = False    
+        flag_menu = False 
 
     else:
         print('\nOpção inválida, por favor, escolha uma opção válida!.')

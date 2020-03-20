@@ -9,7 +9,9 @@ def menu():
     print('*** Visualizar a lista de desejos: [3] ***')
     print('*** Buscar filme na lista de desejos: [4] ***')
     print('*** Atualizar status de filme da lista de desejos: [5] ***')
-    print('*** Sair da lista de desejos: [6] ***')
+    print('*** Sugestões com base no último filme adicionado: [6] ***')
+    print('*** Sugestões com base no último filme adicionado: [7] ***')
+    print('*** Sair da lista de desejos: [8] ***')
     print('***********************************************\n')
 
 def status():
@@ -206,9 +208,35 @@ def adicionar_filme():
    
     try:
              
-        title = input(str('\nDigite o nome do filme que deseja buscar: '))
+        print('\nAdicionar filme fornecendo apenas um título: [1] ')
+        print ('Adicionar um filme fornecendo um título e um ano: [2]')
+        escolha_para_adicionar = str(input('\nDigite o número da escolha que deseja: '))
         
-        filme_na_lista = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&t={}'.format(title)).json()# Fazendo a chamada da API com base no título do filme
+
+        if escolha_para_adicionar == '1':
+
+            title = str(input('\nDigite o nome do filme que deseja buscar: '))
+        
+            try:
+        
+                filme_na_lista = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&t={}'.format(title)).json()# Fazendo a chamada da API com base no título do filme
+            
+            except ConnectionError:
+                print('Erro de conexão!')
+                voltando_ao_menu()
+            
+        elif escolha_para_adicionar == '2':
+
+            title = str(input('\nDigite o nome do filme que deseja buscar: '))
+            ano = int(input('Digite o ano do filme: '))
+            
+            try:
+            
+                filme_na_lista = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&t={}&y={}'.format(title, ano)).json()
+
+            except ConnectionError:
+                print('Erro de conexão!')
+                voltando_ao_menu()
 
         print(f'\nO título do filme é: {filme_na_lista["Title"]}')
         print(f'O ano do filme é: {filme_na_lista["Year"]}')
@@ -292,7 +320,7 @@ def adicionar_filme():
 
     except KeyError:
 
-        print('\nNome do filme inválido')
+        print('\nNome do filme ou ano(Caso opção de de fornecer ano também tenha sido selecionada) inválido.')
         voltando_ao_menu()        
 
 def deletar_filme():
@@ -362,4 +390,66 @@ def deletar_filme():
     
     except KeyError:
         print('\nNão é um filme válido.')
-        voltando_ao_menu()    
+        voltando_ao_menu()  
+
+def sugestoes_com_base_no_ultimo_filme_adicionado():
+
+    try:
+        
+        with open ('lista_de_desejos.json') as arquivo:
+
+            reference = json.load(arquivo)
+
+            if len(reference) != 0:
+
+                for filme in reference:
+
+                    if filme == reference[len(reference) - 1]:
+
+                        nome = filme["Titulo"]
+
+                        consulta = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&s={}'.format(nome)).json()
+                        
+                        if 'Error' not in consulta and 'False' not in consulta:    
+                            
+                            print('\nTemos algumas sugestões com base no seu último filme adicionado!\n ')
+                            print(json.dumps(consulta["Search"], indent=4))
+                            voltando_ao_menu()
+
+                        else:
+                            print('\n"Desculpe, não foi possível sugerir mídias com base no seu último filme adicionado a lista de desejos,'
+                             ' adicione um novo filme e tente novamente!')
+                            voltando_ao_menu()
+                    else:
+                        pass
+            
+            else:
+                print('Você não possui nenhum filme na sua lista!')
+                voltando_ao_menu()
+
+
+    except FileNotFoundError:
+        print('Você ainda não possui uma lista de desejos!')
+        voltando_ao_menu()
+
+def sugestoes_com_base_em_todos_os_filmes_adicionados():
+
+    try: 
+
+        with open ('lista_de_desejos.json') as arquivo:
+            
+            reference = arquivo
+
+            if len(reference) != 0:
+
+                for filme in reference:
+
+                    nome = filme["Titulo"]
+
+                    consulta = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&s={}'.format(nome)).json()
+
+                     if 'Error' not in consulta and 'False' not in consulta:    
+                            
+                            print('\nTemos algumas sugestões com base nos filmes adicionados a lista de desejos !\n ')
+                            print(json.dumps(consulta["Search"], indent=4))
+                            voltando_ao_menu()
