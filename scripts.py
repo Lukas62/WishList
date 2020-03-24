@@ -226,17 +226,14 @@ def adicionar_filme():
                 voltando_ao_menu()
             
         elif escolha_para_adicionar == '2':
-
-            title = str(input('\nDigite o nome do filme que deseja buscar: '))
-            ano = int(input('Digite o ano do filme: '))
-            
-            try:
+                
+                title = str(input('\nDigite o nome do filme que deseja buscar: '))
+                ano = int(input('Digite o ano do filme: '))
             
                 filme_na_lista = requests.get('http://www.omdbapi.com/?apikey=e85dca2c&t={}&y={}'.format(title, ano)).json()
-
-            except ConnectionError:
-                print('Erro de conexão!')
-                voltando_ao_menu()
+        else:
+            
+            print('\nOpção inválida.')                     
 
         print(f'\nO título do filme é: {filme_na_lista["Title"]}')
         print(f'O ano do filme é: {filme_na_lista["Year"]}')
@@ -320,8 +317,23 @@ def adicionar_filme():
 
     except KeyError:
 
-        print('\nNome do filme ou ano(Caso opção de de fornecer ano também tenha sido selecionada) inválido.')
-        voltando_ao_menu()        
+        print('\nNome do filme ou ano(Caso opção de fornecer ano também tenha sido selecionada) inválido.')
+        voltando_ao_menu()   
+
+    except ConnectionError:
+                
+        print('Erro de conexão!')
+        voltando_ao_menu()
+
+    except ValueError:
+                
+        print('\nNão foi digitado o ano e/ou o nome de um filme válido!')
+        voltando_ao_menu()
+
+    except UnboundLocalError:
+        
+        print('Não foi possivel realizar a ação.')
+        voltando_ao_menu()
 
 def deletar_filme():
 
@@ -442,12 +454,12 @@ def sugestoes_com_base_no_ultimo_filme_adicionado():
                         pass
             
             else:
-                print('Você não possui nenhum filme na sua lista!')
+                print('\nNão é possível sugerir mídias, pois você ainda não possui nenhum filme adicionado a sua lista para ser usado como base.')
                 voltando_ao_menu()
 
 
     except FileNotFoundError:
-        print('Você ainda não possui uma lista de desejos!')
+        print('\nNão é possível sugerir mídias, pois você ainda não possui uma lista de desejos, de volta ao menu, vá em adicionar filme e crie uma!')
         voltando_ao_menu()
 
 def sugestoes_com_base_em_todos_os_filmes_adicionados():
@@ -498,7 +510,8 @@ def sugestoes_com_base_em_todos_os_filmes_adicionados():
         voltando_ao_menu()
 
     except FileNotFoundError:
-        print('Você não possui uma lista!')
+        
+        print('\nNão é possível sugerir mídias, pois você ainda não possui uma lista de desejos, de volta ao menu, vá em adicionar filme e crie uma!')
         voltando_ao_menu()   
 
     #print('\nTemos algumas sugestões de filmes com base nos seus filmes adicionados a lista de desejos!\n')                         
